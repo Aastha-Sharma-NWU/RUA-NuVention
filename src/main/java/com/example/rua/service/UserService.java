@@ -1,5 +1,6 @@
 package com.example.rua.service;
 
+import com.example.rua.model.Communication;
 import com.example.rua.model.Roles;
 import com.example.rua.model.Users;
 import com.example.rua.repository.RoleRepository;
@@ -51,5 +52,9 @@ public class UserService {
             user1.setRoleId(user.getRoleId());
             userRepository.save(user1);
         }
+    }
+
+    public Communication getUserWeeklyLogsByContactNumber(String contactNumber) {
+        User
     }
 }

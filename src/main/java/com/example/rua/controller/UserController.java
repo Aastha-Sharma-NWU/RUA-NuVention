@@ -44,7 +44,10 @@ public class UserController {
         userService.setUserRoleByContactNumber(user);
     }
 
-    
+    @GetMapping("/getUserWeeklyLogs/{contactNumber}")
+    public Communication getUserWeeklyLogsByContactNumber(@PathVariable String contactNumber){
+        return userService.getUserWeeklyLogsByContactNumber(contactNumber);
+    }
 
 
 }
