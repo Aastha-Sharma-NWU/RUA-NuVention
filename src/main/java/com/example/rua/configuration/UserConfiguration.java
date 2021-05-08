@@ -13,17 +13,17 @@ import java.time.LocalDate;
 @Configuration
 public class UserConfiguration {
 
-    @Bean
-    CommandLineRunner CommandLineRunner(UserRepository repository){
-        return args -> {
-         Users Charlotte=new Users("Charlotte","password","8989898989",2, LocalDate.of(2021,05,01));
-         Users Cesar=new Users("Cesar","password1","8989898980",2,LocalDate.of(2021,05,01));
-         Users Janea=new Users("Jiang","password3","8989898982",2,LocalDate.of(2021,05,01));
-            repository.saveAll(List.of(Charlotte,Cesar,Janea));
-        };
-
-
-    }
+//    @Bean
+//    CommandLineRunner CommandLineRunner(UserRepository repository){
+//        return args -> {
+//         Users Charlotte=new Users("Charlotte","password","8989898989",2, LocalDate.of(2021,05,01));
+//         Users Cesar=new Users("Cesar","password1","8989898980",2,LocalDate.of(2021,05,01));
+//         Users Janea=new Users("Jiang","password3","8989898982",2,LocalDate.of(2021,05,01));
+//            repository.saveAll(List.of(Charlotte,Cesar,Janea));
+//        };
+//
+//
+//    }
 
 
 

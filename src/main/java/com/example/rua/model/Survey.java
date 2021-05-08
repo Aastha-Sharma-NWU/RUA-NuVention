@@ -17,8 +17,8 @@ public class Survey {
             generator ="survey_sequence"
     )
     private Long id;
-    private Integer parentId;
-    private Integer studentId;
+    private Long parentId;
+    private Long studentId;
     private Integer parentsDesiredAudioCalls;
     private Integer parentsDesiredVideoCalls;
     private Integer parentsDesiredTexts;
@@ -32,7 +32,7 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(Long id, Integer parentId, Integer studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
+    public Survey(Long id, Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
         this.id = id;
         this.parentId = parentId;
         this.studentId = studentId;
@@ -46,7 +46,7 @@ public class Survey {
         this.studentsDesiredNoCallDays = studentsDesiredNoCallDays;
     }
 
-    public Survey(Integer parentId, Integer studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
+    public Survey(Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
         this.parentId = parentId;
         this.studentId = studentId;
         this.parentsDesiredAudioCalls = parentsDesiredAudioCalls;
@@ -67,19 +67,19 @@ public class Survey {
         this.id = id;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    public Integer getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Integer studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 

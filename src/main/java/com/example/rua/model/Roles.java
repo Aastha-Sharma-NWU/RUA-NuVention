@@ -16,7 +16,7 @@ public class Roles {
             strategy = GenerationType.SEQUENCE,
             generator ="role_sequence"
     )
-    private Integer Id;
+    private Integer id;
     private String name;
     private LocalDate createdDate;
     private LocalDate updatedDate;
@@ -25,7 +25,7 @@ public class Roles {
     }
 
     public Roles(Integer id, String name, LocalDate createdDate, LocalDate updatedDate) {
-        Id = id;
+        this.id = id;
         this.name = name;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
@@ -38,11 +38,11 @@ public class Roles {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -72,7 +72,7 @@ public class Roles {
     @Override
     public String toString() {
         return "Roles{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", name='" + name + '\'' +
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +

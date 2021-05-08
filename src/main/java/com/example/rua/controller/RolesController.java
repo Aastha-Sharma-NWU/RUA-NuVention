@@ -32,4 +32,5 @@ public class RolesController {
     public void addNewRoles(@RequestBody Roles role) throws IllegalAccessException {
         roleService.addNewRole(role);
     }
+
 }

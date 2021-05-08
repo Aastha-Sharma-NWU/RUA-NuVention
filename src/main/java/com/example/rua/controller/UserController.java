@@ -1,5 +1,6 @@
 package com.example.rua.controller;
 
+import com.example.rua.model.Communication;
 import com.example.rua.model.Users;
 import com.example.rua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,19 @@ public class UserController {
     public void registerNewUser(@RequestBody Users user) throws IllegalAccessException {
         userService.registerNewUser(user);
     }
+
+    @GetMapping("/getUserRoleByContactNumber/{contactNumber}")
+    public String getUserRoleByContactNumber(@PathVariable String contactNumber){
+        return userService.getUserRoleByContactNumber(contactNumber);
+    }
+
+    @PostMapping("/setUserRoleByContactNumber")
+    public void setUserRoleByContactNumber(@RequestBody Users user) {
+
+        userService.setUserRoleByContactNumber(user);
+    }
+
+    
+
+
 }
