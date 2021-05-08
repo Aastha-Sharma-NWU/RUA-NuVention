@@ -1,9 +1,23 @@
 package com.example.rua.model;
 
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class Communication {
-
+@Entity
+@Table
+public class WeeklyLogs {
+    @Id
+    @SequenceGenerator(
+            name="weeklyLogs_sequence",
+            sequenceName = "weeklyLogs_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator ="weeklyLogs_sequence"
+    )
     private Long id;
     private String contactNumber;
     private LocalDate weekStartDate;
@@ -12,10 +26,10 @@ public class Communication {
     private Integer videoCalls;
     private Integer textMessages;
 
-    public Communication() {
+    public WeeklyLogs() {
     }
 
-    public Communication(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
         this.id = id;
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
@@ -25,7 +39,7 @@ public class Communication {
         this.textMessages = textMessages;
     }
 
-    public Communication(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
         this.weekEndDate = weekEndDate;

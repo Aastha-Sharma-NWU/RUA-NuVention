@@ -1,13 +1,11 @@
 package com.example.rua.controller;
 
-import com.example.rua.model.Communication;
 import com.example.rua.model.Users;
+import com.example.rua.model.WeeklyLogs;
 import com.example.rua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,9 +43,13 @@ public class UserController {
     }
 
     @GetMapping("/getUserWeeklyLogs/{contactNumber}")
-    public Communication getUserWeeklyLogsByContactNumber(@PathVariable String contactNumber){
+    public WeeklyLogs getUserWeeklyLogsByContactNumber(@PathVariable String contactNumber){
         return userService.getUserWeeklyLogsByContactNumber(contactNumber);
     }
 
+    @PostMapping("/setUserWeeklyLogs/{contactNumber}")
+    public void setUserWeeklyLogsByContactNumber(@RequestBody WeeklyLogs weekLogs, @PathVariable String contactNumber){
+         userService.setUserWeeklyLogsByContactNumber(weekLogs,contactNumber);
+    }
 
 }
