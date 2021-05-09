@@ -28,19 +28,33 @@ public class SurveyService {
 
     public boolean isSurveyFilledByUser(String contactNumber){
         Users user=userRepository.findUserByContactNumber(contactNumber);
+        if(user==null)
+            return false;
         Integer roleId=user.getRoleId();
         if(roleId==1){
-            Long parentId=surveyRepository.findUserIdByParentId(user.getId());
-            if(null!=parentId)
+            Survey userSurvey=surveyRepository.findUserByParentId(user.getId());
+            if(userSurvey!=null){
                 return true;
-            else return false;
+            }
+            else {
+                return false;
+            }//            Long parentId=surveyRepository.findUserByParentId(user.getId());
+//            if(null!=parentId)
+
         }else {
             if (roleId == 2) {
-                Long studentId = surveyRepository.findUserIdByStudentId(user.getId());
-                if (null != studentId)
+                Survey userSurvey=surveyRepository.findUserByStudentId(user.getId());
+                if(userSurvey!=null){
                     return true;
+                }
+                else{
+                    return false;
+                }
+//                Long studentId = surveyRepository.findUserIdByStudentId(user.getId());
+//                if (null != studentId)
+//                    return true;
 
-                else return false;
+
             }
         }
         return false;

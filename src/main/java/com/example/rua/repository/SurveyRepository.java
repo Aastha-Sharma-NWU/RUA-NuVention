@@ -15,8 +15,8 @@ public interface SurveyRepository extends JpaRepository<Survey,Long> {
     //@Query("select s from Survey s " + "where (s.parentId= userId) "
     //        + "or (s.studentId=userId) ")
 
-    Long findUserIdByParentId(Long parentId);
-    Long findUserIdByStudentId(Long studentId);
+//    Long findUserByParentId(Long parentId);
+//    Long findUserByStudentId(Long studentId);
 
     Survey findUserByParentId(Long parentId);
     Survey findUserByStudentId(Long studentId);
