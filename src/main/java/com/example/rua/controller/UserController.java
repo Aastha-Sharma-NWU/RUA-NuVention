@@ -32,7 +32,7 @@ public class UserController {
         return userService.getUsers();
 
     }
-    
+
 
     @PostMapping("/login")
     public Status loginUser(@Valid @RequestBody Users user) {
