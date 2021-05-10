@@ -9,6 +9,7 @@ import com.example.rua.repository.WeeklyLogsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,6 +64,14 @@ public class UserService {
     public void setUserWeeklyLogsByContactNumber(WeeklyLogs weekLogs,String contactNumber) {
         WeeklyLogs logs=weeklyLogsRepository.findWeeklyLogsByContactNumber(contactNumber);
         if(logs==null){
+            //set weekStartDate and weekEndDate
+            LocalDate today = LocalDate.now();
+            LocalDate weekStartDate= findWeekStartDate(today);
+            LocalDate weekEndDate=findWeekEndDate(today);
+            weekLogs.setWeekStartDate(weekStartDate);
+            weekLogs.setWeekEndDate(weekEndDate);
+            weekLogs.setContactNumber(contactNumber);
+            //save weekly logs
             weeklyLogsRepository.save(weekLogs);
         }else{
             logs.setContactNumber(contactNumber);
@@ -84,29 +93,24 @@ public class UserService {
         }
    }
 
-    public static Date getWeekStartDate() {
-        Calendar calendar = Calendar.getInstance();
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            calendar.add(Calendar.DATE, -1);
+   public LocalDate findWeekStartDate(LocalDate today){
+       LocalDate monday = today;
+       while (monday.getDayOfWeek() != DayOfWeek.MONDAY)
+       {
+           monday = monday.minusDays(1);
+       }
+     return monday;
+   }
+
+    public LocalDate findWeekEndDate(LocalDate today){
+        LocalDate sunday = today;
+        while (sunday.getDayOfWeek() != DayOfWeek.SUNDAY)
+        {
+            sunday = sunday.plusDays(1);
         }
-        return calendar.getTime();
+      return sunday;
     }
 
-    public static Date getWeekEndDate() {
-        Calendar calendar = Calendar.getInstance();
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            calendar.add(Calendar.DATE, 1);
-        }
-        calendar.add(Calendar.DATE, -1);
-        return calendar.getTime();
-    }
 }
 
 
-/*
-private LocalDate weekStartDate;
-    private LocalDate weekEndDate;
-    private Integer audioCalls;
-    private Integer videoCalls;
-    private Integer textMessages;
- */

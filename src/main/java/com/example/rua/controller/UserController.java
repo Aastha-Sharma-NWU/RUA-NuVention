@@ -1,10 +1,14 @@
 package com.example.rua.controller;
 
+import com.example.rua.model.Status;
 import com.example.rua.model.Users;
 import com.example.rua.model.WeeklyLogs;
+import com.example.rua.repository.UserRepository;
 import com.example.rua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
+
 
 import java.util.List;
 
@@ -13,6 +17,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     public UserController(UserService userService) {
@@ -24,6 +31,30 @@ public class UserController {
     public List<Users> getUsers(){
         return userService.getUsers();
 
+    }
+    
+
+    @PostMapping("/login")
+    public Status loginUser(@Valid @RequestBody Users user) {
+        Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
+        if(null!=userObj){
+            userObj.setLoggedIn(true);
+            userRepository.save(userObj);
+            return Status.SUCCESS;
+        }
+        return Status.FAILURE;
+    }
+
+
+    @PostMapping("/logout")
+    public Status logUserOut(@Valid @RequestBody Users user) {
+        Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
+        if(null!=userObj){
+            userObj.setLoggedIn(false);
+            userRepository.save(userObj);
+            return Status.SUCCESS;
+        }
+        return Status.FAILURE;
     }
 
     @PostMapping

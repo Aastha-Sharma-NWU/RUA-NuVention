@@ -2,6 +2,8 @@ package com.example.rua.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+import javax.validation.Valid;
 
 @Entity
 @Table
@@ -19,6 +21,7 @@ public class Users {
     private Long id;
     private String name;
     private String password;
+    private boolean loggedIn;
     private String contactNumber;
     private Integer roleId;
     private LocalDate createdDate;
@@ -27,18 +30,20 @@ public class Users {
     public Users() {
     }
 
-    public Users(Long id, String name, String password, String contactNumber, Integer roleId, LocalDate createdDate) {
+    public Users(Long id, String name, String password, boolean loggedIn, String contactNumber, Integer roleId, LocalDate createdDate) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.loggedIn = loggedIn;
         this.contactNumber = contactNumber;
         this.roleId = roleId;
         this.createdDate = createdDate;
     }
 
-    public Users(String name, String password, String contactNumber, Integer roleId, LocalDate createdDate) {
+    public Users(String name, String password, boolean loggedIn, String contactNumber, Integer roleId, LocalDate createdDate) {
         this.name = name;
         this.password = password;
+        this.loggedIn = loggedIn;
         this.contactNumber = contactNumber;
         this.roleId = roleId;
         this.createdDate = createdDate;
@@ -68,6 +73,14 @@ public class Users {
         this.password = password;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
     public String getContactNumber() {
         return contactNumber;
     }
@@ -93,11 +106,26 @@ public class Users {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Users)) return false;
+        Users user = (Users) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(password, user.password);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, password,
+                loggedIn);
+    }
+
+    @Override
     public String toString() {
         return "Users{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", loggedIn=" + loggedIn +
                 ", contactNumber='" + contactNumber + '\'' +
                 ", roleId=" + roleId +
                 ", createdDate=" + createdDate +
