@@ -25,8 +25,8 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 30000)
     public void getHeadValue() {
         System.out.println("Inside Schedule Task");
-        smsRequest= new SmsRequest("8479043585","Call your parents");
-        twilioSmsSender.sendSms(smsRequest);
-        log.info("Value: {}", "Message send");
+//        smsRequest= new SmsRequest("8479043585","Call your parents");
+//        twilioSmsSender.sendSms(smsRequest);
+//        log.info("Value: {}", "Message send");
     }
 }

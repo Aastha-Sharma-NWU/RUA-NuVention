@@ -1,9 +1,6 @@
 package com.example.rua.service;
 
-import com.example.rua.model.Roles;
-import com.example.rua.model.Survey;
-import com.example.rua.model.SurveyDTO;
-import com.example.rua.model.Users;
+import com.example.rua.model.*;
 import com.example.rua.repository.RoleRepository;
 import com.example.rua.repository.SurveyRepository;
 import com.example.rua.repository.UserRepository;
@@ -13,7 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class SurveyService {
+public class
+SurveyService {
 
     private final SurveyRepository surveyRepository;
     private final UserRepository userRepository;
@@ -38,9 +36,7 @@ public class SurveyService {
             }
             else {
                 return false;
-            }//            Long parentId=surveyRepository.findUserByParentId(user.getId());
-//            if(null!=parentId)
-
+            }
         }else {
             if (roleId == 2) {
                 Survey userSurvey=surveyRepository.findUserByStudentId(user.getId());
@@ -50,17 +46,12 @@ public class SurveyService {
                 else{
                     return false;
                 }
-//                Long studentId = surveyRepository.findUserIdByStudentId(user.getId());
-//                if (null != studentId)
-//                    return true;
-
-
             }
         }
         return false;
     }
 
-    public void AddUserSurvey(SurveyDTO survey, String contactNumber) {
+    public Status AddUserSurvey(SurveyDTO survey, String contactNumber) {
         Users user=userRepository.findUserByContactNumber(contactNumber);
         Integer roleId=user.getRoleId();
         if(roleId==1){
@@ -92,7 +83,7 @@ public class SurveyService {
             studentSurvey.setStudentsDesiredNoCallDays(survey.getStudentsDesiredNoCallDays());
             surveyRepository.save(studentSurvey);
         }
-
+       return Status.SUCCESS;
     }
 
 

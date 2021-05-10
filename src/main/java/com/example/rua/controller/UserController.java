@@ -27,12 +27,16 @@ public class UserController {
     }
 
 
-    @GetMapping
-    public List<Users> getUsers(){
-        return userService.getUsers();
+    @GetMapping("/all")
+    public List<Users> getAllUsers(){
+        return userService.getAllUsers();
 
     }
 
+    @PostMapping("/register")
+    public Status registerNewUser(@RequestBody Users user) throws IllegalAccessException {
+        return userService.registerNewUser(user);
+    }
 
     @PostMapping("/login")
     public Status loginUser(@Valid @RequestBody Users user) {
@@ -45,7 +49,6 @@ public class UserController {
         return Status.FAILURE;
     }
 
-
     @PostMapping("/logout")
     public Status logUserOut(@Valid @RequestBody Users user) {
         Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
@@ -57,10 +60,6 @@ public class UserController {
         return Status.FAILURE;
     }
 
-    @PostMapping
-    public void registerNewUser(@RequestBody Users user) throws IllegalAccessException {
-        userService.registerNewUser(user);
-    }
 
     @GetMapping("/getUserRoleByContactNumber/{contactNumber}")
     public String getUserRoleByContactNumber(@PathVariable String contactNumber){
@@ -68,9 +67,9 @@ public class UserController {
     }
 
     @PostMapping("/setUserRoleByContactNumber")
-    public void setUserRoleByContactNumber(@RequestBody Users user) {
+    public Status setUserRoleByContactNumber(@RequestBody Users user) {
 
-        userService.setUserRoleByContactNumber(user);
+        return userService.setUserRoleByContactNumber(user);
     }
 
     @GetMapping("/getUserWeeklyLogs/{contactNumber}")
@@ -79,8 +78,8 @@ public class UserController {
     }
 
     @PostMapping("/setUserWeeklyLogs/{contactNumber}")
-    public void setUserWeeklyLogsByContactNumber(@RequestBody WeeklyLogs weekLogs, @PathVariable String contactNumber){
-         userService.setUserWeeklyLogsByContactNumber(weekLogs,contactNumber);
+    public Status setUserWeeklyLogsByContactNumber(@RequestBody WeeklyLogs weekLogs, @PathVariable String contactNumber){
+         return userService.setUserWeeklyLogsByContactNumber(weekLogs,contactNumber);
     }
 
 }

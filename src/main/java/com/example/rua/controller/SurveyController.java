@@ -1,5 +1,6 @@
 package com.example.rua.controller;
 
+import com.example.rua.model.Status;
 import com.example.rua.model.Survey;
 import com.example.rua.model.SurveyDTO;
 import com.example.rua.model.Users;
@@ -29,8 +30,8 @@ public class SurveyController {
     }
 
     @PostMapping(path="/fillUserSurvey/{contactNumber}")
-    public void AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
-        surveyService.AddUserSurvey(survey,contactNumber);
+    public Status AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
+        return surveyService.AddUserSurvey(survey,contactNumber);
     }
 
 }
