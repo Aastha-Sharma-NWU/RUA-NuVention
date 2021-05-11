@@ -21,4 +21,17 @@ public interface SurveyRepository extends JpaRepository<Survey,Long> {
     Survey findUserByParentId(Long parentId);
     Survey findUserByStudentId(Long studentId);
 
+    Integer findParentsDesiredAudioCallsByParentId(Long parentId);
+    Integer findStudentsDesiredAudioCallsByStudentId(Long studentId);
+
+    Integer findParentsDesiredTextsByParentId(Long parentId);
+    Integer findStudentsDesiredTextsByStudentId(Long studentId);
+
+
+    //need to modify to many to one
+    Long findStudentIdByParentId(Long parentId);
+    Long findParentIdByStudentId(Long studentId);
+
+
+
 }

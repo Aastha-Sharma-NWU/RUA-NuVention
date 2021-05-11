@@ -1,6 +1,7 @@
 package com.example.rua.scheduling;
 
 import com.example.rua.model.SmsRequest;
+import com.example.rua.service.NotificationService;
 import com.example.rua.service.TwilioSmsSender;
 import com.example.rua.service.TwilioSmsService;
 import org.slf4j.Logger;
@@ -15,6 +16,9 @@ public class ScheduledTasks {
     @Autowired
     private TwilioSmsSender twilioSmsSender;
 
+    @Autowired
+    private NotificationService notificationService;
+
     //@Autowired
     private SmsRequest smsRequest;
 
@@ -25,6 +29,7 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 30000)
     public void getHeadValue() {
         System.out.println("Inside Schedule Task");
+       // notificationService.sendNotifictionsToParents();
 //        smsRequest= new SmsRequest("8479043585","Call your parents");
 //        twilioSmsSender.sendSms(smsRequest);
 //        log.info("Value: {}", "Message send");

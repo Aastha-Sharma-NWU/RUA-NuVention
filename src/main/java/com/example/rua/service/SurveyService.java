@@ -54,10 +54,17 @@ SurveyService {
     public Status AddUserSurvey(SurveyDTO survey, String contactNumber) {
         Users user=userRepository.findUserByContactNumber(contactNumber);
         Integer roleId=user.getRoleId();
+        Survey parentSurvey=null;
+        Long studentId = null;
+        Survey studentSurvey=null;
+        Long parentId=null;
         if(roleId==1){
             Users student=userRepository.findUserByContactNumber(survey.getStudentContactNumber());
-            Long studentId=student.getId();
-            Survey parentSurvey=surveyRepository.findUserByStudentId(studentId);
+            if(student!=null){
+                studentId=student.getId();
+                parentSurvey=surveyRepository.findUserByStudentId(studentId);
+            }
+
             if(parentSurvey==null) {
                 parentSurvey = new Survey();
             }
@@ -68,10 +75,14 @@ SurveyService {
             parentSurvey.setParentsDesiredTexts(survey.getParentsDesiredTexts());
             parentSurvey.setParentsDesiredNoCallDays(survey.getParentsDesiredNoCallDays());
             surveyRepository.save(parentSurvey);
+            return Status.SUCCESS;
         }else{
             Users parent=userRepository.findUserByContactNumber(survey.getParentContactNumber());
-            Long parentId=parent.getId();
-            Survey studentSurvey=surveyRepository.findUserByParentId(parentId);
+            if(parent!=null){
+                parentId=parent.getId();
+                studentSurvey=surveyRepository.findUserByParentId(parentId);
+            }
+
             if(studentSurvey==null) {
                 studentSurvey = new Survey();
             }
@@ -82,10 +93,10 @@ SurveyService {
             studentSurvey.setStudentsDesiredTexts(survey.getStudentsDesiredTexts());
             studentSurvey.setStudentsDesiredNoCallDays(survey.getStudentsDesiredNoCallDays());
             surveyRepository.save(studentSurvey);
+            return Status.SUCCESS;
         }
-       return Status.SUCCESS;
-    }
 
+    }
 
 
 }
