@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/rua/api/roles")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RolesController {
 
     private final RoleService roleService;

@@ -135,6 +135,44 @@ public class UserService {
       return sunday;
     }
 
+    public Status updateUserProfileByContactNumber(Users user, String contactNumber) {
+        Users user1=userRepository.findUserByContactNumber(contactNumber);
+
+        if (user1 != null) {
+            String newName=null;
+            String newContactNumber=null;
+            String newPassword=null;
+
+          if(user.getName()!=null){
+              newName = user.getName();
+              if(!newName.isEmpty() && newName!=null){
+                  user1.setName(newName);
+              }
+          }
+          if(user.getContactNumber()!=null){
+              newContactNumber=user.getContactNumber();
+
+              if(!newContactNumber.isEmpty() &&  newContactNumber!=null){
+                  //Verify that contact number should not exist already
+                  Users duplicateUser=userRepository.findUserByContactNumber(newContactNumber);
+                  if(duplicateUser!=null){
+                      return Status.FAILURE;
+                  }
+                  user1.setContactNumber(newContactNumber);
+              }
+          }
+          if(user.getPassword()!=null){
+              newPassword=user.getPassword();
+              if(!newPassword.isEmpty() && newPassword!=null){
+                  user1.setPassword(newPassword);
+              }
+
+          }
+             userRepository.save(user1);
+            return Status.SUCCESS;
+        }
+        return Status.FAILURE;
+    }
 }
 
 

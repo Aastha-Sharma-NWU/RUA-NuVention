@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/rua/api/users")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
 
     private final UserService userService;
@@ -41,7 +42,7 @@ public class UserController {
     @PostMapping("/login")
     public Status loginUser(@Valid @RequestBody Users user) {
         Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
-        if(null!=userObj){
+        if(null!=userObj ){
             userObj.setLoggedIn(true);
             userRepository.save(userObj);
             return Status.SUCCESS;
@@ -80,6 +81,11 @@ public class UserController {
     @PostMapping("/setUserWeeklyLogs/{contactNumber}")
     public Status setUserWeeklyLogsByContactNumber(@RequestBody WeeklyLogs weekLogs, @PathVariable String contactNumber){
          return userService.setUserWeeklyLogsByContactNumber(weekLogs,contactNumber);
+    }
+
+    @PutMapping("/updateUserProfile/{contactNumber}")
+     public Status updateUserProfile(@RequestBody Users user,@PathVariable String contactNumber){
+        return userService.updateUserProfileByContactNumber(user,contactNumber);
     }
 
 }

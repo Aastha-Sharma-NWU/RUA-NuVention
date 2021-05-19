@@ -3,15 +3,13 @@ package com.example.rua.controller;
 import com.example.rua.model.SmsRequest;
 import com.example.rua.service.TwilioSmsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path="/rua/api/sms")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class SmsController {
 
     private final TwilioSmsService twilioSmsService;

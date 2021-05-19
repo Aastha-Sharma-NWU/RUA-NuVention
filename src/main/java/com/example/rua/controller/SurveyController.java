@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/rua/api/survey")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class SurveyController {
 
     private final SurveyService surveyService;
@@ -32,6 +33,21 @@ public class SurveyController {
     @PostMapping(path="/fillUserSurvey/{contactNumber}")
     public Status AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
         return surveyService.AddUserSurvey(survey,contactNumber);
+    }
+
+//    @PutMapping(path="/updateUserSurvey/{contactNumber}")
+//    public Status updateUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
+//        return surveyService.AddUserSurvey(survey,contactNumber);
+//    }
+
+    @GetMapping(path="/getCommunicationPreferences/{contactNumber}")
+    public SurveyDTO getCommunicationPreferences(@PathVariable String contactNumber){
+        return surveyService.getCommunicationPreferences(contactNumber);
+    }
+
+    @GetMapping(path="/getSuggestedPlan/{contactNumber}")
+    public SurveyDTO getSuggestedPlan(@PathVariable String contactNumber){
+        return surveyService.getSuggestedPlan(contactNumber);
     }
 
 }
