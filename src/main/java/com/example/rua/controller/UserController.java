@@ -67,10 +67,9 @@ public class UserController {
         return userService.getUserRoleByContactNumber(contactNumber);
     }
 
-    @PostMapping("/setUserRoleByContactNumber")
-    public Status setUserRoleByContactNumber(@RequestBody Users user) {
-
-        return userService.setUserRoleByContactNumber(user);
+    @PutMapping("/setUserRoleByContactNumber/{contactNumber}")
+    public Status setUserRoleByContactNumber(@RequestBody Users user,@PathVariable String contactNumber) {
+        return userService.setUserRoleByContactNumber(user,contactNumber);
     }
 
     @GetMapping("/getUserWeeklyLogs/{contactNumber}")

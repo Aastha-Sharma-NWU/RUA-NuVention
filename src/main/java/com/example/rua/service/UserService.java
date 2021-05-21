@@ -1,10 +1,8 @@
 package com.example.rua.service;
 
-import com.example.rua.model.Roles;
-import com.example.rua.model.Status;
-import com.example.rua.model.Users;
-import com.example.rua.model.WeeklyLogs;
+import com.example.rua.model.*;
 import com.example.rua.repository.RoleRepository;
+import com.example.rua.repository.SurveyRepository;
 import com.example.rua.repository.UserRepository;
 import com.example.rua.repository.WeeklyLogsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +19,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final WeeklyLogsRepository weeklyLogsRepository;
+    private final SurveyRepository surveyRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, WeeklyLogsRepository weeklyLogsRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, WeeklyLogsRepository weeklyLogsRepository, SurveyRepository surveyRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.weeklyLogsRepository = weeklyLogsRepository;
+        this.surveyRepository = surveyRepository;
     }
 
     public List<Users> getAllUsers(){
@@ -55,14 +53,67 @@ public class UserService {
         return user.getName()+" has not selected role yet";
     }
 
-    public Status setUserRoleByContactNumber(Users user) {
-       Users user1=userRepository.findUserByContactNumber(user.getContactNumber());
-        if(user1!=null){
-            user1.setRoleId(user.getRoleId());
-            userRepository.save(user1);
-            return Status.SUCCESS;
+//    public Status setUserRoleByContactNumber(Users user) {
+//       Users currentUser=userRepository.findUserByContactNumber(user.getContactNumber());
+//        if(currentUser!=null){
+//            currentUser.setRoleId(user.getRoleId());
+//            userRepository.save(currentUser);
+//            return Status.SUCCESS;
+//        }
+//       return Status.FAILURE;
+//    }
+
+    public Status setUserRoleByContactNumber(Users user,String contactNumber) {
+        Users currentUser=userRepository.findUserByContactNumber(contactNumber);
+        if(currentUser!=null){
+            //user role has been defined yet
+            if(currentUser.getRoleId()==null){
+                currentUser.setRoleId(user.getRoleId());
+                userRepository.save(currentUser);
+                return Status.SUCCESS;
+            }else{
+                Integer originalRole=currentUser.getRoleId();
+                Survey currentUserSurvey=null;
+                //delete user record from survey table
+                if(originalRole==1){
+                    currentUserSurvey=surveyRepository.findUserByParentId(currentUser.getId());
+                    if(currentUserSurvey!=null){
+                        currentUserSurvey.setParentId(null);
+                        currentUserSurvey.setParentsDesiredAudioCalls(null);
+                        currentUserSurvey.setParentsDesiredVideoCalls(null);
+                        currentUserSurvey.setParentsDesiredTexts(null);
+                        currentUserSurvey.setParentsDesiredNoCallDays(null);
+                        surveyRepository.save(currentUserSurvey);
+                    }
+                }else if(originalRole==2){
+                    currentUserSurvey=surveyRepository.findUserByStudentId(currentUser.getId());
+                    if(currentUserSurvey!=null) {
+                        currentUserSurvey.setStudentId(null);
+                        currentUserSurvey.setStudentsDesiredAudioCalls(null);
+                        currentUserSurvey.setStudentsDesiredVideoCalls(null);
+                        currentUserSurvey.setStudentsDesiredTexts(null);
+                        currentUserSurvey.setStudentsDesiredNoCallDays(null);
+                        currentUserSurvey.setGrades(false);
+                        currentUserSurvey.setDating(false);
+                        currentUserSurvey.setFood(false);
+                        currentUserSurvey.setMoney(false);
+                        currentUserSurvey.setJob(false);
+                        currentUserSurvey.setHealth(false);
+                        surveyRepository.save(currentUserSurvey);
+                    }
+                }
+
+                //delete user record from weekly_logs table
+                weeklyLogsRepository.deleteWeeklyLogsByContactNumber(contactNumber);
+
+                //user role has been updated
+                currentUser.setRoleId(user.getRoleId());
+                userRepository.save(currentUser);
+                return Status.SUCCESS;
+            }
+
         }
-       return Status.FAILURE;
+        return Status.FAILURE;
     }
 
     public Status setUserWeeklyLogsByContactNumber(WeeklyLogs weekLogs,String contactNumber) {
