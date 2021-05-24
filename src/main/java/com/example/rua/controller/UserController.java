@@ -87,4 +87,9 @@ public class UserController {
         return userService.updateUserProfileByContactNumber(user,contactNumber);
     }
 
+    @PutMapping("/setUserFeedback/{contactNumber}")
+    public Status setUserFeedback(@RequestBody WeeklyLogs weeklyLogs,@PathVariable String contactNumber){
+        return userService.setUserFeedback(weeklyLogs,contactNumber);
+    }
+
 }

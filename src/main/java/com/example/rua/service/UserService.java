@@ -224,6 +224,23 @@ public class UserService {
         }
         return Status.FAILURE;
     }
+
+
+    public Status setUserFeedback(WeeklyLogs weeklyLogs,String contactNumber) {
+        WeeklyLogs currentUserLogs = weeklyLogsRepository.findWeeklyLogsByContactNumber(contactNumber);
+        if(currentUserLogs!=null){
+            Users user=userRepository.findUserByContactNumber(contactNumber);
+            Integer roleId=user.getRoleId();
+            if(roleId==2){
+                currentUserLogs.setIsOffLimitRespected(weeklyLogs.getIsOffLimitRespected());
+            }
+            currentUserLogs.setIsHappy(weeklyLogs.getIsHappy());
+            weeklyLogsRepository.save(currentUserLogs);
+            return Status.SUCCESS;
+        }
+
+        return Status.FAILURE;
+    }
 }
 
 
