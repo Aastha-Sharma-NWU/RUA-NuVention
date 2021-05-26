@@ -1,9 +1,6 @@
 package com.example.rua.controller;
 
-import com.example.rua.model.Status;
-import com.example.rua.model.Survey;
-import com.example.rua.model.SurveyDTO;
-import com.example.rua.model.Users;
+import com.example.rua.model.*;
 import com.example.rua.service.SurveyService;
 import com.example.rua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +21,25 @@ public class SurveyController {
     }
 
 
-    @GetMapping(path="/isUserSurveyFilled/{contactNumber}")
-    public boolean isSurveyFilledByUser(@PathVariable String contactNumber ){
-        return surveyService.isSurveyFilledByUser(contactNumber);
+//    @GetMapping(path="/isUserSurveyFilled/{contactNumber}")
+//    public boolean isSurveyFilledByUser(@PathVariable String contactNumber ){
+//        return surveyService.isSurveyFilledByUser(contactNumber);
+//
+//    }
+@GetMapping(path="/isUserSurveyFilled/{contactNumber}")
+public Response isSurveyFilledByUser(@PathVariable String contactNumber ){
+    return surveyService.isSurveyFilledByUser(contactNumber);
 
-    }
+}
 
-    @PostMapping(path="/fillUserSurvey/{contactNumber}")
-    public Status AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
-        return surveyService.AddUserSurvey(survey,contactNumber);
-    }
+//    @PostMapping(path="/fillUserSurvey/{contactNumber}")
+//    public Status AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
+//        return surveyService.AddUserSurvey(survey,contactNumber);
+//    }
+@PostMapping(path="/fillUserSurvey/{contactNumber}")
+public Response AddUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
+    return surveyService.AddUserSurvey(survey,contactNumber);
+}
 
 //    @PutMapping(path="/updateUserSurvey/{contactNumber}")
 //    public Status updateUserSurvey(@RequestBody SurveyDTO survey, @PathVariable String contactNumber) throws IllegalAccessException {
