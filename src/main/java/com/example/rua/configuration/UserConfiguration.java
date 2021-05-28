@@ -2,7 +2,6 @@ package com.example.rua.configuration;
 
 import com.example.rua.model.Users;
 import com.example.rua.repository.UserRepository;
-import com.sun.tools.javac.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

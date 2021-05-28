@@ -211,13 +211,23 @@ public Response isSurveyFilledByUser(String contactNumber){
       Long studentId = null;
       Survey studentSurvey=null;
       Long parentId=null;
+      Survey parentsChildSurvey=null;
+      Survey studentsParentSurvey=null;
       if(roleId==1){
-          Users student=userRepository.findUserByContactNumber(survey.getStudentContactNumber());
-          if(student!=null){
-              studentId=student.getId();
-              parentSurvey=surveyRepository.findUserByStudentId(studentId);
+          //check if his survey already exists
+          parentSurvey=surveyRepository.findUserByParentId(user.getId());
+          //if not check if his child has already filled survey
+          if(parentSurvey==null){
+              Users student=userRepository.findUserByContactNumber(survey.getStudentContactNumber());
+              if(student!=null){
+                  studentId=student.getId();
+                  parentsChildSurvey=surveyRepository.findUserByStudentId(studentId);
+                  if(parentsChildSurvey!=null){
+                      parentSurvey=parentsChildSurvey;
+                  }
+             }
           }
-
+         //if neither of parent's or his/her child's survey exists then create new survey
           if(parentSurvey==null) {
               parentSurvey = new Survey();
           }
@@ -233,12 +243,21 @@ public Response isSurveyFilledByUser(String contactNumber){
           return response;
 
       }else{
-          Users parent=userRepository.findUserByContactNumber(survey.getParentContactNumber());
-          if(parent!=null){
-              parentId=parent.getId();
-              studentSurvey=surveyRepository.findUserByParentId(parentId);
-          }
+          //check if his survey already exists
+          studentSurvey=surveyRepository.findUserByStudentId(user.getId());
+          if(studentSurvey==null){
 
+              Users parent=userRepository.findUserByContactNumber(survey.getParentContactNumber());
+              if(parent!=null){
+                  parentId=parent.getId();
+                  //if not check if his parent has already filled survey
+                  studentsParentSurvey=surveyRepository.findUserByParentId(parentId);
+                  if(studentsParentSurvey!=null){
+                      studentSurvey=studentsParentSurvey;
+                  }
+              }
+          }
+          //if neither of parent's or his/her child's survey exists then create new survey
           if(studentSurvey==null) {
               studentSurvey = new Survey();
           }
@@ -311,12 +330,30 @@ public Response isSurveyFilledByUser(String contactNumber){
                 currentUserSurveyData=surveyRepository.findUserByStudentId(currentUser.getId());
             }
         }
-        Integer audioCalls=(currentUserSurveyData.getParentsDesiredAudioCalls()+
-                currentUserSurveyData.getStudentsDesiredAudioCalls())/2;
-        Integer videoCalls=(currentUserSurveyData.getParentsDesiredVideoCalls()+
-                currentUserSurveyData.getStudentsDesiredVideoCalls())/2;
-        Integer textMessages=(currentUserSurveyData.getParentsDesiredTexts()+
-                currentUserSurveyData.getStudentsDesiredTexts())/2;
+        Integer pAudioCalls=null;
+        pAudioCalls=currentUserSurveyData.getParentsDesiredAudioCalls()==null?0:currentUserSurveyData.getParentsDesiredAudioCalls();
+        Integer pVideoCalls=null;
+        pVideoCalls=currentUserSurveyData.getParentsDesiredVideoCalls()==null?0:currentUserSurveyData.getParentsDesiredVideoCalls();
+        Integer pTexts=null;
+        pTexts=currentUserSurveyData.getParentsDesiredTexts()==null?0:currentUserSurveyData.getParentsDesiredTexts();
+
+        Integer sAudioCalls=null;
+        sAudioCalls=currentUserSurveyData.getStudentsDesiredAudioCalls()==null?0:currentUserSurveyData.getStudentsDesiredAudioCalls();
+        Integer sVideoCalls=null;
+        sVideoCalls=currentUserSurveyData.getStudentsDesiredVideoCalls()==null?0:currentUserSurveyData.getStudentsDesiredVideoCalls();
+        Integer sTexts=null;
+        sTexts=currentUserSurveyData.getStudentsDesiredTexts()==null?0:currentUserSurveyData.getStudentsDesiredTexts();
+
+
+        Integer audioCalls=(pAudioCalls+ sAudioCalls)/2;
+        Integer videoCalls=(pVideoCalls+ sVideoCalls)/2;
+        Integer textMessages=(pTexts+ sTexts)/2;
+//        Integer audioCalls=(currentUserSurveyData.getParentsDesiredAudioCalls()+
+//                currentUserSurveyData.getStudentsDesiredAudioCalls())/2;
+//        Integer videoCalls=(currentUserSurveyData.getParentsDesiredVideoCalls()+
+//                currentUserSurveyData.getStudentsDesiredVideoCalls())/2;
+//        Integer textMessages=(currentUserSurveyData.getParentsDesiredTexts()+
+//                currentUserSurveyData.getStudentsDesiredTexts())/2;
 
         //save planned values  in Survey table
         currentUserSurveyData.setPlannedAudioCalls(audioCalls);
