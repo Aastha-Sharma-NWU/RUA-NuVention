@@ -214,6 +214,8 @@ public Response isSurveyFilledByUser(String contactNumber){
       Survey parentsChildSurvey=null;
       Survey studentsParentSurvey=null;
       if(roleId==1){
+
+
           //check if his survey already exists
           parentSurvey=surveyRepository.findUserByParentId(user.getId());
           //if not check if his child has already filled survey
@@ -232,7 +234,7 @@ public Response isSurveyFilledByUser(String contactNumber){
               parentSurvey = new Survey();
           }
           parentSurvey.setParentId(user.getId());
-          parentSurvey.setStudentId(studentId);
+          //parentSurvey.setStudentId(studentId);
           parentSurvey.setParentsDesiredAudioCalls(survey.getParentsDesiredAudioCalls());
           parentSurvey.setParentsDesiredVideoCalls(survey.getParentsDesiredVideoCalls());
           parentSurvey.setParentsDesiredTexts(survey.getParentsDesiredTexts());
@@ -262,7 +264,7 @@ public Response isSurveyFilledByUser(String contactNumber){
               studentSurvey = new Survey();
           }
           studentSurvey.setStudentId(user.getId());
-          studentSurvey.setParentId(parentId);
+          //studentSurvey.setParentId(parentId);
           studentSurvey.setStudentsDesiredAudioCalls(survey.getStudentsDesiredAudioCalls());
           studentSurvey.setStudentsDesiredVideoCalls(survey.getStudentsDesiredVideoCalls());
           studentSurvey.setStudentsDesiredTexts(survey.getStudentsDesiredTexts());
