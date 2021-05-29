@@ -7,8 +7,6 @@ import com.example.rua.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class
 SurveyService {
@@ -16,12 +14,14 @@ SurveyService {
     private final SurveyRepository surveyRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final UserService userService;
 
     @Autowired
-    public SurveyService(SurveyRepository surveyRepository, UserRepository userRepository, RoleRepository roleRepository) {
+    public SurveyService(SurveyRepository surveyRepository, UserRepository userRepository, RoleRepository roleRepository, UserService userService) {
         this.surveyRepository = surveyRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.userService = userService;
     }
 
 
@@ -106,6 +106,9 @@ public Response isSurveyFilledByUser(String contactNumber){
         public boolean isSurveyFilled(String contactNumber){
         Users user=userRepository.findUserByContactNumber(contactNumber);
         if(user==null)
+            return false;
+        String role=userService.getUserRole(user.getContactNumber());
+        if(role==null)
             return false;
         Integer roleId=user.getRoleId();
         if(roleId==1){

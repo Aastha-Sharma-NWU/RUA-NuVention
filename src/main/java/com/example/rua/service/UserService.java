@@ -63,7 +63,8 @@ public class UserService {
          Optional<Roles> oRole = roleRepository.findById(user.getRoleId());
             return oRole.get().getName();
         }
-        return user.getName()+" has not selected role yet";
+        //return user.getName()+" has not selected role yet";
+        return null;
     }
 
 //--------old version
