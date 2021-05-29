@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/rua/api/users")
@@ -56,28 +57,56 @@ public class UserController {
 //        }
 //        return Status.FAILURE;
 //    }
-       @PostMapping("/login")
-       public Response loginUser(@Valid @RequestBody Users user) {
-        Response response= new Response();
-            Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
-             if(null!=userObj ){
-                 if(user.getPassword().equals(userObj.getPassword())){
-                     userObj.setLoggedIn(true);
-                     userRepository.save(userObj);
-                     response.setStatus("Success");
-                     response.setMessage("User Successfully Logged In");
-                     return response;
-                 }else{
-                     response.setStatus("Failure");
-                     response.setMessage("Incorrect Password");
-                     return response;
-                 }
+//       @PostMapping("/login")
+//       public Response loginUser(@Valid @RequestBody Users user) {
+//        Response response= new Response();
+//            Users userObj = userRepository.findUserByContactNumber(user.getContactNumber());
+//             if(null!=userObj ){
+//                 if(user.getPassword().equals(userObj.getPassword())){
+//                     userObj.setLoggedIn(true);
+//                     userRepository.save(userObj);
+//                     response.setStatus("Success");
+//                     response.setMessage("User Successfully Logged In");
+//                     return response;
+//                 }else{
+//                     response.setStatus("Failure");
+//                     response.setMessage("Incorrect Password");
+//                     return response;
+//                 }
+//
+//    }
+//           response.setStatus("Failure");
+//           response.setMessage("User does not exists");
+//           return response;
+//}
 
+    @PostMapping("/login")
+    public Response loginUser(@Valid @RequestBody Users user) {
+        Response response= new Response();
+        Users currentUser = userRepository.findUserByContactNumber(user.getContactNumber());
+        if(null!=currentUser ){
+            if(user.getPassword().equals(currentUser.getPassword())){
+                currentUser.setLoggedIn(true);
+                userRepository.save(currentUser);
+
+                String role=userService.getUserRole(user.getContactNumber());
+                boolean isSurveyFilled=surveyService.isSurveyFilled(user.getContactNumber());
+                response.setStatus("Success");
+                response.setMessage("User Successfully Logged In");
+                response.setRole(role);
+                response.setSurveyCompleted(isSurveyFilled);
+                return response;
+            }else{
+                response.setStatus("Failure");
+                response.setMessage("Incorrect Password");
+                return response;
+            }
+
+        }
+        response.setStatus("Failure");
+        response.setMessage("User does not exists");
+        return response;
     }
-           response.setStatus("Failure");
-           response.setMessage("User does not exists");
-           return response;
-}
 
 
 

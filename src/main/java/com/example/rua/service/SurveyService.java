@@ -24,6 +24,9 @@ SurveyService {
         this.roleRepository = roleRepository;
     }
 
+
+
+
 //    public boolean isSurveyFilledByUser(String contactNumber){
 //        Users user=userRepository.findUserByContactNumber(contactNumber);
 //        if(user==null)
@@ -97,6 +100,36 @@ public Response isSurveyFilledByUser(String contactNumber){
     response.setSurveyCompleted(false);
     return response;
 }
+
+
+/////check user survey filled or not
+        public boolean isSurveyFilled(String contactNumber){
+        Users user=userRepository.findUserByContactNumber(contactNumber);
+        if(user==null)
+            return false;
+        Integer roleId=user.getRoleId();
+        if(roleId==1){
+            Survey userSurvey=surveyRepository.findUserByParentId(user.getId());
+            if(userSurvey!=null){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }else {
+            if (roleId == 2) {
+                Survey userSurvey=surveyRepository.findUserByStudentId(user.getId());
+                if(userSurvey!=null){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
 
 //    public Status AddUserSurvey(SurveyDTO survey, String contactNumber) {
 //        Users user=userRepository.findUserByContactNumber(contactNumber);

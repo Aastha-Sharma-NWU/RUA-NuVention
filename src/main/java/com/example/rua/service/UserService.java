@@ -55,6 +55,16 @@ public class UserService {
         response.setMessage("User Successfully Registered");
         return response;
 }
+//----getting user role while login
+    public String getUserRole(String contactNumber) {
+        Users user=userRepository.findUserByContactNumber(contactNumber);
+        System.out.println(user);
+        if(user!=null && user.getRoleId() !=null){
+         Optional<Roles> oRole = roleRepository.findById(user.getRoleId());
+            return oRole.get().getName();
+        }
+        return user.getName()+" has not selected role yet";
+    }
 
 //--------old version
 //    public String getUserRoleByContactNumber(String contactNumber) {
@@ -66,7 +76,6 @@ public class UserService {
 //        }
 //        return user.getName()+" has not selected role yet";
 //    }
-
     public Response getUserRoleByContactNumber(String contactNumber) {
          Users user=userRepository.findUserByContactNumber(contactNumber);
          Response response=new Response();
