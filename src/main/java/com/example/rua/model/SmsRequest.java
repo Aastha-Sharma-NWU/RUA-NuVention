@@ -21,6 +21,10 @@ public class SmsRequest {
         this.message = message;
     }
 */
+    public SmsRequest(){
+
+    }
+
     public SmsRequest(String contactNumber,
                       String message) {
         this.contactNumber = contactNumber;

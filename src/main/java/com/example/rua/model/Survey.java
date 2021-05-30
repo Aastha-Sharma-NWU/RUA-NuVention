@@ -28,11 +28,22 @@ public class Survey {
     private Integer studentsDesiredVideoCalls;
     private Integer studentsDesiredTexts;
     private Integer studentsDesiredNoCallDays;
+    private boolean grades;
+    private boolean dating;
+    private boolean food;
+    private boolean money;
+    private boolean job;
+    private boolean health;
+
+    private Integer plannedAudioCalls;
+    private Integer plannedVideoCalls;
+    private Integer plannedTextMessages;
+
 
     public Survey() {
     }
 
-    public Survey(Long id, Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
+    public Survey(Long id, Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays, boolean grades, boolean dating, boolean food, boolean money, boolean job, boolean health, Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages) {
         this.id = id;
         this.parentId = parentId;
         this.studentId = studentId;
@@ -44,9 +55,18 @@ public class Survey {
         this.studentsDesiredVideoCalls = studentsDesiredVideoCalls;
         this.studentsDesiredTexts = studentsDesiredTexts;
         this.studentsDesiredNoCallDays = studentsDesiredNoCallDays;
+        this.grades = grades;
+        this.dating = dating;
+        this.food = food;
+        this.money = money;
+        this.job = job;
+        this.health = health;
+        this.plannedAudioCalls = plannedAudioCalls;
+        this.plannedVideoCalls = plannedVideoCalls;
+        this.plannedTextMessages = plannedTextMessages;
     }
 
-    public Survey(Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays) {
+    public Survey(Long parentId, Long studentId, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays, boolean grades, boolean dating, boolean food, boolean money, boolean job, boolean health, Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages) {
         this.parentId = parentId;
         this.studentId = studentId;
         this.parentsDesiredAudioCalls = parentsDesiredAudioCalls;
@@ -57,6 +77,15 @@ public class Survey {
         this.studentsDesiredVideoCalls = studentsDesiredVideoCalls;
         this.studentsDesiredTexts = studentsDesiredTexts;
         this.studentsDesiredNoCallDays = studentsDesiredNoCallDays;
+        this.grades = grades;
+        this.dating = dating;
+        this.food = food;
+        this.money = money;
+        this.job = job;
+        this.health = health;
+        this.plannedAudioCalls = plannedAudioCalls;
+        this.plannedVideoCalls = plannedVideoCalls;
+        this.plannedTextMessages = plannedTextMessages;
     }
 
     public Long getId() {
@@ -147,6 +176,78 @@ public class Survey {
         this.studentsDesiredNoCallDays = studentsDesiredNoCallDays;
     }
 
+    public boolean isGrades() {
+        return grades;
+    }
+
+    public void setGrades(boolean grades) {
+        this.grades = grades;
+    }
+
+    public boolean isDating() {
+        return dating;
+    }
+
+    public void setDating(boolean dating) {
+        this.dating = dating;
+    }
+
+    public boolean isFood() {
+        return food;
+    }
+
+    public void setFood(boolean food) {
+        this.food = food;
+    }
+
+    public boolean isMoney() {
+        return money;
+    }
+
+    public void setMoney(boolean money) {
+        this.money = money;
+    }
+
+    public boolean isJob() {
+        return job;
+    }
+
+    public void setJob(boolean job) {
+        this.job = job;
+    }
+
+    public boolean isHealth() {
+        return health;
+    }
+
+    public void setHealth(boolean health) {
+        this.health = health;
+    }
+
+    public Integer getPlannedAudioCalls() {
+        return plannedAudioCalls;
+    }
+
+    public void setPlannedAudioCalls(Integer plannedAudioCalls) {
+        this.plannedAudioCalls = plannedAudioCalls;
+    }
+
+    public Integer getPlannedVideoCalls() {
+        return plannedVideoCalls;
+    }
+
+    public void setPlannedVideoCalls(Integer plannedVideoCalls) {
+        this.plannedVideoCalls = plannedVideoCalls;
+    }
+
+    public Integer getPlannedTextMessages() {
+        return plannedTextMessages;
+    }
+
+    public void setPlannedTextMessages(Integer plannedTextMessages) {
+        this.plannedTextMessages = plannedTextMessages;
+    }
+
     @Override
     public String toString() {
         return "Survey{" +
@@ -161,6 +262,15 @@ public class Survey {
                 ", studentsDesiredVideoCalls=" + studentsDesiredVideoCalls +
                 ", studentsDesiredTexts=" + studentsDesiredTexts +
                 ", studentsDesiredNoCallDays=" + studentsDesiredNoCallDays +
+                ", grades=" + grades +
+                ", dating=" + dating +
+                ", food=" + food +
+                ", money=" + money +
+                ", job=" + job +
+                ", health=" + health +
+                ", plannedAudioCalls=" + plannedAudioCalls +
+                ", plannedVideoCalls=" + plannedVideoCalls +
+                ", plannedTextMessages=" + plannedTextMessages +
                 '}';
     }
 }

@@ -25,11 +25,34 @@ public class WeeklyLogs {
     private Integer audioCalls;
     private Integer videoCalls;
     private Integer textMessages;
+    private boolean isOffLimitRespected;
+    private boolean isHappy;
+
 
     public WeeklyLogs() {
     }
 
-    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+//    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+//        this.id = id;
+//        this.contactNumber = contactNumber;
+//        this.weekStartDate = weekStartDate;
+//        this.weekEndDate = weekEndDate;
+//        this.audioCalls = audioCalls;
+//        this.videoCalls = videoCalls;
+//        this.textMessages = textMessages;
+//    }
+//
+//    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+//        this.contactNumber = contactNumber;
+//        this.weekStartDate = weekStartDate;
+//        this.weekEndDate = weekEndDate;
+//        this.audioCalls = audioCalls;
+//        this.videoCalls = videoCalls;
+//        this.textMessages = textMessages;
+//    }
+
+
+    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy) {
         this.id = id;
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
@@ -37,15 +60,19 @@ public class WeeklyLogs {
         this.audioCalls = audioCalls;
         this.videoCalls = videoCalls;
         this.textMessages = textMessages;
+        this.isOffLimitRespected = isOffLimitRespected;
+        this.isHappy = isHappy;
     }
 
-    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
+    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy) {
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
         this.weekEndDate = weekEndDate;
         this.audioCalls = audioCalls;
         this.videoCalls = videoCalls;
         this.textMessages = textMessages;
+        this.isOffLimitRespected = isOffLimitRespected;
+        this.isHappy = isHappy;
     }
 
     public Long getId() {
@@ -102,5 +129,21 @@ public class WeeklyLogs {
 
     public void setTextMessages(Integer textMessages) {
         this.textMessages = textMessages;
+    }
+
+    public boolean getIsOffLimitRespected() {
+        return isOffLimitRespected;
+    }
+
+    public void setIsOffLimitRespected(boolean offLimitRespected) {
+        isOffLimitRespected = offLimitRespected;
+    }
+
+    public boolean getIsHappy() {
+        return isHappy;
+    }
+
+    public void setIsHappy(boolean happy) {
+        isHappy = happy;
     }
 }
