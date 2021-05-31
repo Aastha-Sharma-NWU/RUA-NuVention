@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table
@@ -27,32 +28,13 @@ public class WeeklyLogs {
     private Integer textMessages;
     private boolean isOffLimitRespected;
     private boolean isHappy;
+    private LocalDate lastCallDate;
 
 
     public WeeklyLogs() {
     }
 
-//    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
-//        this.id = id;
-//        this.contactNumber = contactNumber;
-//        this.weekStartDate = weekStartDate;
-//        this.weekEndDate = weekEndDate;
-//        this.audioCalls = audioCalls;
-//        this.videoCalls = videoCalls;
-//        this.textMessages = textMessages;
-//    }
-//
-//    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages) {
-//        this.contactNumber = contactNumber;
-//        this.weekStartDate = weekStartDate;
-//        this.weekEndDate = weekEndDate;
-//        this.audioCalls = audioCalls;
-//        this.videoCalls = videoCalls;
-//        this.textMessages = textMessages;
-//    }
-
-
-    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy) {
+    public WeeklyLogs(Long id, String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy, LocalDate lastCallDate) {
         this.id = id;
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
@@ -62,9 +44,10 @@ public class WeeklyLogs {
         this.textMessages = textMessages;
         this.isOffLimitRespected = isOffLimitRespected;
         this.isHappy = isHappy;
+        this.lastCallDate = lastCallDate;
     }
 
-    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy) {
+    public WeeklyLogs(String contactNumber, LocalDate weekStartDate, LocalDate weekEndDate, Integer audioCalls, Integer videoCalls, Integer textMessages, boolean isOffLimitRespected, boolean isHappy, LocalDate lastCallDate) {
         this.contactNumber = contactNumber;
         this.weekStartDate = weekStartDate;
         this.weekEndDate = weekEndDate;
@@ -73,6 +56,7 @@ public class WeeklyLogs {
         this.textMessages = textMessages;
         this.isOffLimitRespected = isOffLimitRespected;
         this.isHappy = isHappy;
+        this.lastCallDate = lastCallDate;
     }
 
     public Long getId() {
@@ -145,5 +129,29 @@ public class WeeklyLogs {
 
     public void setIsHappy(boolean happy) {
         isHappy = happy;
+    }
+
+    public boolean isOffLimitRespected() {
+        return isOffLimitRespected;
+    }
+
+    public void setOffLimitRespected(boolean offLimitRespected) {
+        isOffLimitRespected = offLimitRespected;
+    }
+
+    public boolean isHappy() {
+        return isHappy;
+    }
+
+    public void setHappy(boolean happy) {
+        isHappy = happy;
+    }
+
+    public LocalDate getLastCallDate() {
+        return lastCallDate;
+    }
+
+    public void setLastCallDate(LocalDate lastCallDate) {
+        this.lastCallDate = lastCallDate;
     }
 }

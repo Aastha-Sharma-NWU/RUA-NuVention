@@ -266,6 +266,9 @@ public Response setUserWeeklyLogsByContactNumber(WeeklyLogs weekLogs,String cont
         weekLogs.setWeekStartDate(weekStartDate);
         weekLogs.setWeekEndDate(weekEndDate);
         weekLogs.setContactNumber(contactNumber);
+        weekLogs.setOffLimitRespected(true);
+        weekLogs.setIsHappy(true);
+        weekLogs.setLastCallDate(LocalDate.now());
         //save weekly logs
         weeklyLogsRepository.save(weekLogs);
         response.setStatus("Success");
@@ -276,6 +279,9 @@ public Response setUserWeeklyLogsByContactNumber(WeeklyLogs weekLogs,String cont
         logs.setAudioCalls(weekLogs.getAudioCalls());
         logs.setVideoCalls(weekLogs.getVideoCalls());
         logs.setTextMessages(weekLogs.getTextMessages());
+        logs.setOffLimitRespected(true);
+        logs.setHappy(true);
+        logs.setLastCallDate(LocalDate.now());
         weeklyLogsRepository.save(logs);
         response.setStatus("Success");
         response.setMessage("User's weekly communication logs has been updated");

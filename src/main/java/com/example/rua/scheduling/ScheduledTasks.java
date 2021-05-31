@@ -26,12 +26,13 @@ public class ScheduledTasks {
 
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 86400000)
     public void getHeadValue() {
         System.out.println("Inside Schedule Task");
-      // notificationService.sendNotifictionsToParents();
+       notificationService.sendNotifictionsToUsers();
 //        smsRequest= new SmsRequest("8479043585","Call your parents");
 //        twilioSmsSender.sendSms(smsRequest);
 //        log.info("Value: {}", "Message send");
     }
 }
+
