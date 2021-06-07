@@ -175,6 +175,7 @@ public class UserController {
         actualVsPlannedCallLogs.setPlannedAudioCalls(plannedLogs.getPlannedAudioCalls());
         actualVsPlannedCallLogs.setPlannedVideoCalls(plannedLogs.getPlannedVideoCalls());
         actualVsPlannedCallLogs.setPlannedTextMessages(plannedLogs.getPlannedTextMessages());
+        actualVsPlannedCallLogs.setMessage(plannedLogs.getMessage());
         return actualVsPlannedCallLogs;
     }
 

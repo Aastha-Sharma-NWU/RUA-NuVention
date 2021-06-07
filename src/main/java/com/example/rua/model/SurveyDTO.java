@@ -25,6 +25,7 @@ public class SurveyDTO {
     private Integer plannedAudioCalls;
     private Integer plannedVideoCalls;
     private Integer plannedTextMessages;
+    private String message;
 
     public SurveyDTO(){
 
@@ -44,7 +45,7 @@ public class SurveyDTO {
 //    }
 
 
-    public SurveyDTO(String studentContactNumber, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, String parentContactNumber, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays, boolean grades, boolean dating, boolean food, boolean money, boolean job, boolean health, Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages) {
+    public SurveyDTO(String studentContactNumber, Integer parentsDesiredAudioCalls, Integer parentsDesiredVideoCalls, Integer parentsDesiredTexts, Integer parentsDesiredNoCallDays, String parentContactNumber, Integer studentsDesiredAudioCalls, Integer studentsDesiredVideoCalls, Integer studentsDesiredTexts, Integer studentsDesiredNoCallDays, boolean grades, boolean dating, boolean food, boolean money, boolean job, boolean health, Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages, String message) {
         this.studentContactNumber = studentContactNumber;
         this.parentsDesiredAudioCalls = parentsDesiredAudioCalls;
         this.parentsDesiredVideoCalls = parentsDesiredVideoCalls;
@@ -64,6 +65,7 @@ public class SurveyDTO {
         this.plannedAudioCalls = plannedAudioCalls;
         this.plannedVideoCalls = plannedVideoCalls;
         this.plannedTextMessages = plannedTextMessages;
+        this.message = message;
     }
 
     public String getStudentContactNumber() {
@@ -216,5 +218,13 @@ public class SurveyDTO {
 
     public void setPlannedTextMessages(Integer plannedTextMessages) {
         this.plannedTextMessages = plannedTextMessages;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -358,6 +358,7 @@ public Response isSurveyFilledByUser(String contactNumber){
 
     public SurveyDTO getSuggestedPlan(String contactNumber) {
         SurveyDTO currentPlan=new SurveyDTO();
+        String message=null;
         Users currentUser=userRepository.findUserByContactNumber(contactNumber);
         Survey currentUserSurveyData=null;
         if(currentUser!=null){
@@ -395,16 +396,23 @@ public Response isSurveyFilledByUser(String contactNumber){
             audioCalls= sAudioCalls;
             videoCalls= sVideoCalls;
             textMessages =sTexts;
+            message="Current plan is based on survey filled by Student.Parent has not filled survey yet." +
+                    "Plan will be updated once both of you fill the survey";
         }  // if student has not filled survey yet
         else if(sAudioCalls==0 && sVideoCalls==0 && sTexts==0){
             audioCalls = pAudioCalls;
             videoCalls = pVideoCalls;
             textMessages = pTexts;
+            message="Current plan is based on survey filled by Parent.Student has not filled survey yet." +
+                    "Plan will be updated once both of you fill the survey";
         } // if both have filled survey
         else{
             audioCalls=(pAudioCalls+ sAudioCalls)/2;
             videoCalls=(pVideoCalls+ sVideoCalls)/2;
             textMessages=(pTexts + sTexts)/2;
+            message="Plan is based on average of values filled by Parent and Student in the survey";
+
+
         }
 
         //save planned values  in Survey table
@@ -423,6 +431,7 @@ public Response isSurveyFilledByUser(String contactNumber){
         currentPlan.setMoney(currentUserSurveyData.isMoney());
         currentPlan.setJob(currentUserSurveyData.isJob());
         currentPlan.setHealth(currentUserSurveyData.isHealth());
+        currentPlan.setMessage(message);
 
         return currentPlan;
     }

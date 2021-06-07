@@ -8,18 +8,20 @@ public class ActualVsPlannedLogs {
     private Integer actualAudioCalls;
     private Integer actualVideoCalls;
     private Integer actualTextMessages;
+    private String message;
 
     public ActualVsPlannedLogs(){
 
     }
 
-    public ActualVsPlannedLogs(Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages, Integer actualAudioCalls, Integer actualVideoCalls, Integer actualTextMessages) {
+    public ActualVsPlannedLogs(Integer plannedAudioCalls, Integer plannedVideoCalls, Integer plannedTextMessages, Integer actualAudioCalls, Integer actualVideoCalls, Integer actualTextMessages, String message) {
         this.plannedAudioCalls = plannedAudioCalls;
         this.plannedVideoCalls = plannedVideoCalls;
         this.plannedTextMessages = plannedTextMessages;
         this.actualAudioCalls = actualAudioCalls;
         this.actualVideoCalls = actualVideoCalls;
         this.actualTextMessages = actualTextMessages;
+        this.message = message;
     }
 
     public Integer getPlannedAudioCalls() {
@@ -69,5 +71,12 @@ public class ActualVsPlannedLogs {
     public void setActualTextMessages(Integer actualTextMessages) {
         this.actualTextMessages = actualTextMessages;
     }
-    
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
