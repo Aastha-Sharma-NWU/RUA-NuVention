@@ -368,6 +368,7 @@ public Response isSurveyFilledByUser(String contactNumber){
                 currentUserSurveyData=surveyRepository.findUserByStudentId(currentUser.getId());
             }
         }
+
         Integer pAudioCalls=null;
         pAudioCalls=currentUserSurveyData.getParentsDesiredAudioCalls()==null?0:currentUserSurveyData.getParentsDesiredAudioCalls();
         Integer pVideoCalls=null;
@@ -383,15 +384,28 @@ public Response isSurveyFilledByUser(String contactNumber){
         sTexts=currentUserSurveyData.getStudentsDesiredTexts()==null?0:currentUserSurveyData.getStudentsDesiredTexts();
 
 
-        Integer audioCalls=(pAudioCalls+ sAudioCalls)/2;
-        Integer videoCalls=(pVideoCalls+ sVideoCalls)/2;
-        Integer textMessages=(pTexts+ sTexts)/2;
-//        Integer audioCalls=(currentUserSurveyData.getParentsDesiredAudioCalls()+
-//                currentUserSurveyData.getStudentsDesiredAudioCalls())/2;
-//        Integer videoCalls=(currentUserSurveyData.getParentsDesiredVideoCalls()+
-//                currentUserSurveyData.getStudentsDesiredVideoCalls())/2;
-//        Integer textMessages=(currentUserSurveyData.getParentsDesiredTexts()+
-//                currentUserSurveyData.getStudentsDesiredTexts())/2;
+//        Integer audioCalls=(pAudioCalls+ sAudioCalls)/2;
+//        Integer videoCalls=(pVideoCalls+ sVideoCalls)/2;
+//        Integer textMessages=(pTexts+ sTexts)/2;
+        Integer audioCalls=0;
+        Integer videoCalls=0;
+        Integer textMessages=0;
+        //if parent has not filled survey yet
+        if(pAudioCalls==0 && pVideoCalls==0 && pTexts==0){
+            audioCalls= sAudioCalls;
+            videoCalls= sVideoCalls;
+            textMessages =sTexts;
+        }  // if student has not filled survey yet
+        else if(sAudioCalls==0 && sVideoCalls==0 && sTexts==0){
+            audioCalls = pAudioCalls;
+            videoCalls = pVideoCalls;
+            textMessages = pTexts;
+        } // if both have filled survey
+        else{
+            audioCalls=(pAudioCalls+ sAudioCalls)/2;
+            videoCalls=(pVideoCalls+ sVideoCalls)/2;
+            textMessages=(pTexts + sTexts)/2;
+        }
 
         //save planned values  in Survey table
         currentUserSurveyData.setPlannedAudioCalls(audioCalls);

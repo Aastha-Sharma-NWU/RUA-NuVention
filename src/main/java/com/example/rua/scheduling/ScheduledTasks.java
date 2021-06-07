@@ -30,9 +30,7 @@ public class ScheduledTasks {
     public void getHeadValue() {
         System.out.println("Inside Schedule Task");
        notificationService.sendNotifictionsToUsers();
-//        smsRequest= new SmsRequest("8479043585","Call your parents");
-//        twilioSmsSender.sendSms(smsRequest);
-//        log.info("Value: {}", "Message send");
+
     }
 }
 
