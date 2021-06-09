@@ -176,7 +176,7 @@ public class NotificationService {
                              smsRequest.setContactNumber(contactNumber);
                              smsRequest.setMessage("Hey "+user.getName()+", you have not called home in " + 
                                              daysSinceLastCall+
-                                     "why dont take out some time to make a quick call to your parents");
+                                     " days , why dont take out some time to make a quick call to your parents");
                              System.out.println("Inside send Notifictions To Students");
                              System.out.println("Hey "+user.getName()+", you have not called home in " +
                                      daysSinceLastCall+
